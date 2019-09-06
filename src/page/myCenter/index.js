@@ -11,7 +11,6 @@ import HomeTabs from '../HomeTabs'
                 <HomeTabs></HomeTabs>
             </View>
         );
-
     }
 }
 export default MyCenter ;

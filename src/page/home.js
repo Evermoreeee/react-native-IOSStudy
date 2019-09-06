@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { Icon, SearchBar, TabBar } from '@ant-design/react-native';
 import  MyCenter from './myCenter/index';
 import  HomeCenter from './homeCenter/index'
-
+import YcHome from './ycHome/index'
 class BasicTabBarExample extends Component {
   constructor(props) {
     super(props);
@@ -39,13 +39,12 @@ class BasicTabBarExample extends Component {
           selected={this.state.selectedTab === 'homeTab'}
           onPress={() => this.onChangeTab('homeTab')}
         >
-          <HomeCenter ></HomeCenter>
-
+          {/* <HomeCenter ></HomeCenter> */}
+          <YcHome></YcHome>
         </TabBar.Item>
         <TabBar.Item
           icon={<Icon name="ordered-list" />}
-          title="文章"
-          badge={9}
+          title="分类"
           selected={this.state.selectedTab === 'textTab'}
           onPress={() => this.onChangeTab('textTab')}
         >
@@ -53,7 +52,7 @@ class BasicTabBarExample extends Component {
         </TabBar.Item>
         <TabBar.Item
           icon={<Icon name="like" />}
-          title="消息"
+          title="购物车"
           selected={this.state.selectedTab === 'msgTab'}
           onPress={() => this.onChangeTab('msgTab')}
         >
