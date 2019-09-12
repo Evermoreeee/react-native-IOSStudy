@@ -5,6 +5,9 @@ import  MyCenter from './myCenter/index';
 import  HomeCenter from './homeCenter/index'
 import YcHome from './ycHome/index'
 class BasicTabBarExample extends Component {
+  static navigationOptions = {
+    title: 'Home',
+  }
   constructor(props) {
     super(props);
     this.state = {

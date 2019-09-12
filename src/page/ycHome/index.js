@@ -1,3 +1,9 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+'use strict'
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -9,7 +15,8 @@ import {
   ImageBackground,
   Button,
   Alert,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableOpacity
 } from 'react-native';
 import { Flex, Icon, WingBlank } from '@ant-design/react-native';
 // import * as API from '../../api/index'
@@ -19,7 +26,7 @@ import { Net } from '../../axios/config';
 
 // 取得屏幕的宽高Dimensions
 const { width, height } = Dimensions.get('window');
-class YcHome extends Component {
+export default class YcHome extends Component {
 
   constructor(props) {
     super(props)
@@ -28,17 +35,17 @@ class YcHome extends Component {
       home_data: [],
     }
   }
-  componentDidMount() {
-    Net.get("musicRankings").then(res => {
-      if (res.data.code === 200) {
-        this.setState({
-          home_data: res.data.result
-        })
-      }
-    })
-      .catch(err => {
-        console.log(err);
+  async _getMusicRankings() {
+    const res = await Net.get('musicRankings').then(res => res.data)
+    console.log(res)
+    if (res.code === 200) {
+      this.setState({
+        home_data: res.result
       })
+    }
+  }
+  componentDidMount() {
+    this._getMusicRankings()
   }
   hexToRgb(hex) {
     let _data = hex.split('x')
@@ -70,58 +77,60 @@ class YcHome extends Component {
               {
                 this.state.home_data.map((_i, _index) => {
                   return <View style={{ backgroundColor: this.hexToRgb(_i.bg_color), marginLeft: 12, marginRight: 12, borderRadius: 10, flex: 1, overflow: 'hidden' }} key={_index}>
-                        <ImageBackground style={styles.ImageView} source={{ uri: _i.bg_pic }}>
-                          <View style={{ marginTop: 80, marginLeft: 21 }}>
-                            <Text style={{ fontSize: 32 }}>{_i.name}</Text>
-                            <Text style={{ color: this.hexToRgb(_i.color), marginTop: 10 }}>{_i.comment}</Text>
-                          </View>
-                        </ImageBackground>
+                    <ImageBackground style={styles.ImageView} source={{ uri: _i.bg_pic }}>
+                      <View style={{ marginTop: 80, marginLeft: 21 }}>
+                        <Text style={{ fontSize: 32 }}>{_i.name}</Text>
+                        <Text style={{ color: this.hexToRgb(_i.color), marginTop: 10 }}>{_i.comment}</Text>
                       </View>
+                    </ImageBackground>
+                  </View>
                 })
               }
             </Swiper>
           </View>
-            {
-              this.state.home_data.map((_item,_index) => {
-                return <View style={{ margin: 12,color:'#333'}} onPress={() => { alert('111') }} key={_index}>
-                        <View style={{marginBottom:0}}>
-                          <Flex>
-                            <Text style={{flex:1,fontSize:18}}>{_item.name}</Text>
-                            <Text style={{fontSize:12,color:'#333'}}>更多</Text>
-                            <Icon style={{fontSize:12,color:'#333'}} name='right'></Icon>
-                          </Flex>
-                          <ScrollView horizontal style={{marginTop:10}}>
-                              {
-                                _item.content.map((_$i,_$index) => {
-                                  return <View key={_$i.album_id} style={{marginRight:12}}>
-                                            <ImageBackground style={{width:99,height:99,borderRadius:9,overflow:'hidden'}} source={{uri:_$i.pic_big}}></ImageBackground>
-                                            <Text style={{width:97,marginTop:8,fontSize:10}}>{_$i.title}</Text>
-                                         </View>
-                                })
-                              }
-                          </ScrollView>
-                        </View>
-                    </View>
-              })
-            }
+          {
+            this.state.home_data.map((_item, _index) => {
+              
+                return <UselessTabSlider DataOption={_item} key={_index}></UselessTabSlider>
+               
+            })
+          }
         </ScrollView>
       </View>
     );
   }
 }
-export default YcHome;
 
-class UselessTextInputMultiline extends Component {
+class UselessTabSlider extends Component {
   static navigationOptions = {
     // title: 'page 1',
     title: '处理触摸事件',
   };
-
+  
   render() {
+    const _item = this.props.DataOption
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Button style={{ flex: 1, backgroundColor: '#333' }} title={'点我!'} onPress={() => { Alert.alert("你点击了按钮!") }} />
+      <View style={{ margin: 12, color: '#333' }} onPress={() => { alert('111') }} >
+      <View style={{ marginBottom: 0 }}>
+        <Flex>
+          <Text style={{ flex: 1, fontSize: 18 }}>{_item.name}</Text>
+          <Text style={{ fontSize: 12, color: '#333' }}>更多</Text>
+          <Icon style={{ fontSize: 12, color: '#333' }} name='right'></Icon>
+        </Flex>
+        <ScrollView horizontal style={{ marginTop: 10 }}>
+          {
+            _item.content.map((_$i, _$index) => {
+              return <TouchableOpacity onPress={() => {console.log('222')}} key={_$i.album_id}>
+              <View  style={{ marginRight: 12 }}>
+                <ImageBackground style={{ width: 99, height: 99, borderRadius: 9, overflow: 'hidden' }} source={{ uri: _$i.pic_big }}></ImageBackground>
+                <Text style={{ width: 97, marginTop: 8, fontSize: 10 }}>{_$i.title}</Text>
+              </View>
+              </TouchableOpacity>
+            })
+          }
+        </ScrollView>
       </View>
+    </View>
     );
   }
 }
@@ -131,7 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff333',
   },
-  
+
   SearchContainer: {
     position: 'absolute',
     flex: 1,

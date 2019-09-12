@@ -15,7 +15,6 @@ const request = (method, url, data, config = {}) => {
     data
   });
   options.headers = options.headers || {};
-
   return new Promise((resolve, reject) => {
     axios.request(options)
       .then((res) => {
