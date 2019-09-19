@@ -1,47 +1,23 @@
-import { createSwitchNavigator ,createAppContainer} from "react-navigation";
-// import Page from './page/page1'
-// import DetailContainer from './page/detailContainer'
+import { createSwitchNavigator ,createAppContainer,StackActions, NavigationActions} from "react-navigation";
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+// import StackViewStyleInterpolator from 'react-navigation-stack/src/views/StackView/StackViewStyleInterpolator';
+import BasicTabBarExample from './page/home'
+import DetailContainer from './page/detailContainer'
 
-class HomeScreen extends Component {
-    render() {
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' ,backgroundColor: '#fff555'}}>
-                <Text>Home Screen</Text>
-                <Button
-                    title="Go to Details"
-                    onPress={() => {
-                        this.props.navigation.dispatch(StackActions.reset({
-                            index: 0,
-                            actions: [
-                                NavigationActions.navigate({ routeName: 'Details' })
-                            ],
-                        }))
-                    }}
-                />
-            </View>
-        );
-    }
-}
-class DetailsScreen extends Component {
-    render() {
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' ,backgroundColor: '#fff555'}}>
-                <Text>Details Screen</Text>
-            </View>
-        );
-    }
-}
+
 const AppNavigator = createSwitchNavigator({
-    HomeScreen: {
-        screen: HomeScreen,
+    Home: {
+        screen: BasicTabBarExample,
     },
-    DetailsScreen: {
-        screen: DetailsScreen,
+    Details: {
+        screen: DetailContainer,
     },
 }, {
-        initialRouteName: 'HomeScreen',
+        initialRouteName: 'Home',
+        mode: 'modal',
+        // transitionConfig:() => ({
+        //     screenInterpolator: StackViewStyleInterpolator.forHorizontal,
+        // })
     });
 
 

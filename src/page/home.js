@@ -2,8 +2,10 @@ import React, {Component}  from 'react';
 import { Text, View } from 'react-native';
 import { Icon, SearchBar, TabBar } from '@ant-design/react-native';
 import  MyCenter from './myCenter/index';
-import  HomeCenter from './homeCenter/index'
+// import  HomeCenter from './homeCenter/index'
 import YcHome from './ycHome/index'
+
+
 class BasicTabBarExample extends Component {
   static navigationOptions = {
     title: 'Home',
@@ -28,12 +30,13 @@ class BasicTabBarExample extends Component {
     });
   }
   render() {
-
+    console.log(this.props)
+    const { navigate }  = this.props.navigation 
     return (
       <TabBar
         unselectedTintColor="#333"
-        tintColor="#ea6f5a"
-        barTintColor="#fff555"
+        tintColor="#fff333"
+        barTintColor="#cc6699"
         style={{width:200,}}
         >
         <TabBar.Item
@@ -43,7 +46,7 @@ class BasicTabBarExample extends Component {
           onPress={() => this.onChangeTab('homeTab')}
         >
           {/* <HomeCenter ></HomeCenter> */}
-          <YcHome></YcHome>
+          <YcHome navigate={navigate}></YcHome>
         </TabBar.Item>
         <TabBar.Item
           icon={<Icon name="ordered-list" />}
@@ -73,4 +76,8 @@ class BasicTabBarExample extends Component {
     );
   }
 }
-export default BasicTabBarExample ;
+
+
+export default  BasicTabBarExample;
+
+

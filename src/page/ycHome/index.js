@@ -10,15 +10,11 @@ import {
   Text,
   View,
   ScrollView,
-  Image,
   Dimensions,
   ImageBackground,
-  Button,
-  Alert,
-  TouchableHighlight,
-  TouchableOpacity
 } from 'react-native';
-import { Flex, Icon, WingBlank } from '@ant-design/react-native';
+import UselessTabSlider from './sliderTabs'
+import { Flex, Icon } from '@ant-design/react-native';
 // import * as API from '../../api/index'
 //引用插件
 import Swiper from 'react-native-swiper';
@@ -56,7 +52,8 @@ export default class YcHome extends Component {
     console.log('handleOnPress')
   }
   render() {
-    console.log(this.state.home_data)
+    // console.log(this.state.home_data)
+    const {navigate} = this.props
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -72,7 +69,8 @@ export default class YcHome extends Component {
               <Icon style={styles.Icon} name="message" />
             </Flex>
           </View>
-          <View style={{ marginTop: 80 }}>
+          
+          <View style={{ marginTop: 75 ,backgroundColor:'#333',paddingTop:5,paddingBottom:5}}>
             <Swiper style={styles.wrapper} removeClippedSubviews={false} height={width * 40 / 75} >
               {
                 this.state.home_data.map((_i, _index) => {
@@ -91,7 +89,7 @@ export default class YcHome extends Component {
           {
             this.state.home_data.map((_item, _index) => {
               
-                return <UselessTabSlider DataOption={_item} key={_index}></UselessTabSlider>
+                return <UselessTabSlider _item={_item} navigate={navigate} key={_index}></UselessTabSlider>
                
             })
           }
@@ -101,44 +99,10 @@ export default class YcHome extends Component {
   }
 }
 
-class UselessTabSlider extends Component {
-  static navigationOptions = {
-    // title: 'page 1',
-    title: '处理触摸事件',
-  };
-  
-  render() {
-    const _item = this.props.DataOption
-    return (
-      <View style={{ margin: 12, color: '#333' }} onPress={() => { alert('111') }} >
-      <View style={{ marginBottom: 0 }}>
-        <Flex>
-          <Text style={{ flex: 1, fontSize: 18 }}>{_item.name}</Text>
-          <Text style={{ fontSize: 12, color: '#333' }}>更多</Text>
-          <Icon style={{ fontSize: 12, color: '#333' }} name='right'></Icon>
-        </Flex>
-        <ScrollView horizontal style={{ marginTop: 10 }}>
-          {
-            _item.content.map((_$i, _$index) => {
-              return <TouchableOpacity onPress={() => {console.log('222')}} key={_$i.album_id}>
-              <View  style={{ marginRight: 12 }}>
-                <ImageBackground style={{ width: 99, height: 99, borderRadius: 9, overflow: 'hidden' }} source={{ uri: _$i.pic_big }}></ImageBackground>
-                <Text style={{ width: 97, marginTop: 8, fontSize: 10 }}>{_$i.title}</Text>
-              </View>
-              </TouchableOpacity>
-            })
-          }
-        </ScrollView>
-      </View>
-    </View>
-    );
-  }
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff333',
+    backgroundColor: '#ffcc99',
   },
 
   SearchContainer: {

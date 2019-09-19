@@ -28,8 +28,8 @@ const request = (method, url, data, config = {}) => {
 
 // 封装axios方法
 export const Net = {
-  get(url, config) {
-    return request('get', url, null, config);
+  get(url,data,config) {
+    return request('get', url, data, config);
   },
   post(url, data, config) {
     return request('post', url, data, config);

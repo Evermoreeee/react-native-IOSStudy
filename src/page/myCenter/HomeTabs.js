@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import { Flex,Tabs } from '@ant-design/react-native';
-
+import { Flex,Tabs ,InputItem} from '@ant-design/react-native';
+import CenterList from './centerList'
 class HomeTabs extends Component {
     render(){
         const tabs = [
@@ -9,38 +9,16 @@ class HomeTabs extends Component {
             { title: '专题' ,icon:'✈️'},
             { title: '连载' ,icon:'🐍'},
           ];
-        const renderTabBar = () => {
-            return(
-                <View  style={styles.renderTabBar}>
-                    <Flex justify="center" align="center" style={{height:50}}>
-                    {
-                        tabs.map( (tab,index) => {
-                            return(
-                                <Flex.Item key={index}>
-                                        <Text style={{textAlign:'center'}}>{tab.title}</Text>
-                                </Flex.Item>
-                            )
-                        })
-                    }
-                    </Flex>
-                </View>
-            )
-        }
         return(
             <View style={styles.tabsBar}>
                 <Tabs 
-                    tabBarBackgroundColor='#fff333'
-                    // renderTabBar={renderTabBar}
-                    // renderTab={tab => 
-                    //             <View  style={styles.renderTab}>
-                    //              <Text>{tab.title}</Text>
-                    //             </View>
-                    //           }
+                    tabBarBackgroundColor='#333'
                     tabBarActiveTextColor='#ea6f5a'
+                    tabBarInactiveTextColor='#fff'
                     tabBarUnderlineStyle={styles.outline} 
                     tabs={tabs}>
                     <View style={styles.tabstyle}>
-                        <Text style={{color:'red'}}>✨星星在闪耀</Text>
+                        <CenterList></CenterList>
                     </View>
                     <View style={styles.tabstyle}>
                         <Text>Content of Second Tab</Text>
@@ -57,7 +35,7 @@ export default HomeTabs;
 const styles = StyleSheet.create({
     tabsBar:{
         flex:1,
-        backgroundColor:'#fff333'
+        backgroundColor:'#333'
     },
     renderTabBar:{
         width: 150,
@@ -77,10 +55,9 @@ const styles = StyleSheet.create({
     },
     tabstyle:{
         flex:1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 150,
-        backgroundColor:'#333',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        backgroundColor:'#00cc00',
     },
     topTabItem:{
         width:50,
@@ -90,6 +67,7 @@ const styles = StyleSheet.create({
     },
     outline:{
         width: 36,
+        height: 2,
         backgroundColor:'#ea6f5a',
         marginLeft:45,
     }
