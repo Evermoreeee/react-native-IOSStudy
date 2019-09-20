@@ -54,7 +54,7 @@ class BasicTabBarExample extends Component {
           selected={this.state.selectedTab === 'textTab'}
           onPress={() => this.onChangeTab('textTab')}
         >
-          <MyCenter></MyCenter>
+          <MyCenter navigate={navigate}></MyCenter>
         </TabBar.Item>
         <TabBar.Item
           icon={<Icon name="like" />}
@@ -76,6 +76,7 @@ class BasicTabBarExample extends Component {
     );
   }
 }
+
 
 
 export default  BasicTabBarExample;

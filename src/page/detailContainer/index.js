@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { createStackNavigator } from 'react-navigation-stack';
+
 import {
     StyleSheet,
     Text,
@@ -12,6 +14,13 @@ import {
 import { Flex, Icon } from '@ant-design/react-native';
 
 export default class DetailContainer extends Component {
+    static navigationOptions = {
+        title:'详情',
+        headerStyle:{
+            backgroundColor:'#fff555'
+        },
+        headerTintColor: '#333'
+    }
     constructor(props) {
         super(props)
         this.state = {
@@ -35,17 +44,17 @@ export default class DetailContainer extends Component {
         }
     }
     render() {
-        console.log(this.props.navigation)
+        // console.log(this.props.navigation)
         const { navigate } = this.props.navigation;
         const { Detail } = this.props.navigation.state.params;
 
         const IconList = Detail.biaoshi.split(',')
         return (
             <View style={{ flex: 1 ,backgroundColor:'#ff99cc'}}>
-                <Text style={styles.topTitle}>你是叫布兰妮吗</Text>
+                {/* <Text style={styles.topTitle}>你是叫布兰妮吗</Text>
                 <Button title='返回' onPress={() => {
                     navigate('Home')
-                }}></Button>
+                }}></Button> */}
                 <View style={{ marginLeft: 12,backgroundColor:'#ff99cc' }}>
                     <Image style={{ width: 120, height: 120, borderRadius: 60, marginBottom: 24 }} source={{ uri: Detail.pic_big }}></Image>
 
@@ -105,7 +114,6 @@ export default class DetailContainer extends Component {
         )
     }
     componentDidMount() {
-
         Animated.timing(
             this.state.fadeAnim,  //初始值
             {

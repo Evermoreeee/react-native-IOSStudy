@@ -3,27 +3,30 @@ import React, { Component } from 'react';
 // import StackViewStyleInterpolator from 'react-navigation-stack/src/views/StackView/StackViewStyleInterpolator';
 import BasicTabBarExample from './page/home'
 import DetailContainer from './page/detailContainer'
+import ImageDetail from './page/detailContainer/ImageDetail'
+
+import { createStackNavigator } from 'react-navigation-stack';
 
 
-const AppNavigator = createSwitchNavigator({
+const AppRouter= createStackNavigator({
     Home: {
         screen: BasicTabBarExample,
+        navigationOptions:{
+            header:null
+        }
     },
     Details: {
-        screen: DetailContainer,
+        screen:DetailContainer,
     },
+    ImageDetail:{
+        screen :ImageDetail,
+    }
 }, {
         initialRouteName: 'Home',
-        mode: 'modal',
-        // transitionConfig:() => ({
-        //     screenInterpolator: StackViewStyleInterpolator.forHorizontal,
-        // })
+        mode: "card",
+        headerMode:'screen'
     });
 
 
-const AppContainer = createAppContainer(AppNavigator);
-export default class App extends Component {
-    render() {
-        return <AppContainer />;
-    }
-}
+const AppContainer = createAppContainer(AppRouter);
+export default AppContainer;
