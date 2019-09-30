@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import BasicTabBarExample from './page/home'
 import DetailContainer from './page/detailContainer'
 import ImageDetail from './page/detailContainer/ImageDetail'
-
+import DetailVideo from './page/detailContainer/DetailVideo'
 import { createStackNavigator } from 'react-navigation-stack';
 
 
@@ -20,6 +20,9 @@ const AppRouter= createStackNavigator({
     },
     ImageDetail:{
         screen :ImageDetail,
+    },
+    DetailVideo:{
+        screen:DetailVideo
     }
 }, {
         initialRouteName: 'Home',
