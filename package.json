@@ -14,7 +14,7 @@
     "mobx": "^5.13.1",
     "mobx-react": "^5.4.4",
     "prop-type": "0.0.1",
-    "qs": "^6.8.0",
+    "qs": "^6.8.3",
     "react": "16.8.3",
     "react-native": "0.59.9",
     "react-native-axios": "^0.17.1",
